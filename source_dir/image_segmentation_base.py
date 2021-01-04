@@ -465,13 +465,14 @@ if __name__ == "__main__":
                               steps_per_epoch=STEPS_PER_EPOCH,
                               validation_steps=VALIDATION_STEPS,
                               validation_data=test_dataset,
-                              callbacks=callbacks
+                              callbacks=callbacks,
+                              verbose=2
                               )
 
-    loss = model_history.history['loss']
+    train_loss = model_history.history['loss']
     val_loss = model_history.history['val_loss']
 
-    logging.info('Train loss:{}'.format(loss))
+    logging.info('Train loss:{}'.format(train_loss))
     logging.info('Val loss:{}'.format(val_loss))
 
     if mpi:
@@ -483,3 +484,4 @@ if __name__ == "__main__":
         save_history(os.path.join(args.output_data_dir,
                                   'model_history.p'), model_history)
         save_model(model, args.artifact_dir)
+
